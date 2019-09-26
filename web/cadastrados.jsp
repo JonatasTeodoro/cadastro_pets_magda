@@ -61,6 +61,23 @@
             });
         </script>
 
+        <script type="text/javascript">
+            function sleep(milliseconds) {
+                var start = new Date().getTime();
+                for (var i = 0; i < 1e7; i++) {
+                    if ((new Date().getTime() - start) > milliseconds) {
+                        break;
+                    }
+                }
+            }
+
+
+            function msg() {
+                sleep(2000);
+                alert("Foi");
+            }
+        </script>
+
         <style type="text/css">
             #divAlert{
                 position: fixed;
@@ -89,7 +106,7 @@
         %>
 
         <!-- Page Wrapper -->
-        <div id="wrapper">
+        <div  id="wrapper">
 
             <!-- Sidebar -->
             <ul style="background-color: #022700" class="navbar-nav  sidebar sidebar-dark accordion toggled" id="accordionSidebar">
@@ -127,14 +144,14 @@
                             <!-- Card Body -->
                             <div class="card-body">
                                 <div class="card shadow mb-4">
-                                    
-                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                            <h6 class="m-0 font-weight-bold text-primary">Consulta</h6>
-                                            <div class="dropdown no-arrow">
-                                                <label>Usuário: <%=usuario.getNome()%></label>
-                                            </div>
+
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">Consulta</h6>
+                                        <div class="dropdown no-arrow">
+                                            <label>Usuário: <%=usuario.getNome()%></label>
                                         </div>
-                                    
+                                    </div>
+
                                     <div class="card-body">
                                         <div class="table-responsive">
 
@@ -144,29 +161,29 @@
                                                 </span>
                                                 <span id="msgAtualizarTabela" class="text">Atualizar tabela</span>
                                             </button>
+                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Proprietário</th>
+                                                            <th>Nome do animal</th>
+                                                            <th>Tipo</th>
+                                                            <th>Ações</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Proprietário</th>
+                                                            <th>Nome do animal</th>
+                                                            <th>Tipo</th>
+                                                            <th>Ações</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tbody id="resultTabela">
 
-                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Proprietário</th>
-                                                        <th>Nome do animal</th>
-                                                        <th>Tipo</th>
-                                                        <th>Ações</th>
-                                                    </tr>
-                                                </thead>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>Proprietário</th>
-                                                        <th>Nome do animal</th>
-                                                        <th>Tipo</th>
-                                                        <th>Ações</th>
-                                                    </tr>
-                                                </tfoot>
-                                                <tbody id="resultTabela">
 
-
-                                                </tbody>
-                                            </table>
+                                                    </tbody>
+                                                </table>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -211,40 +228,43 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div id="divAlert" class="col-md-5">
+        <div id="divAlert" class="col-md-5">
 
-            </div>
+        </div>
 
-            <script type="text/javascript">
+        <script type="text/javascript">
 
 
-                function editarAnimal(id, nomeAnimal) {
-                    var clique = confirm("Você deseja editar " + nomeAnimal + "?");
-                    if (clique == true) {
-                        location.href = 'EditarAnimal?id=' + id;
-                    }
+
+
+            function editarAnimal(id, nomeAnimal) {
+                var clique = confirm("Você deseja editar " + nomeAnimal + "?");
+                if (clique == true) {
+                    location.href = 'EditarAnimal?id=' + id;
                 }
-            </script>
+            }
+        </script>
 
-            <!-- Bootstrap core JavaScript-->
+        <!-- Bootstrap core JavaScript-->
 
-            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-            <!-- Core plugin JavaScript-->
-            <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-            <!-- Custom scripts for all pages-->
-            <script src="js/sb-admin-2.min.js?version=2"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js?version=2"></script>
 
-            <!-- Page level plugins -->
-            <script src="vendor/datatables/jquery.dataTables.js"></script>
-            <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <!-- Page level plugins -->
+        <script src="vendor/datatables/jquery.dataTables.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-            <!-- Page level custom scripts -->
-            <script src="js/demo/datatables-demo.js"></script>
-            <script src="js/manipular_animais.js?version=22"></script>
-            <script src="js/sumir_alerts.js?version=1"></script>
+        <!-- Page level custom scripts -->
+        <script src="js/demo/datatables-demo.js"></script>
+        <script src="js/manipular_animais.js?version=24"></script>
+        <script src="js/sumir_alerts.js?version=1"></script>
 
 
 

@@ -1,4 +1,5 @@
 buscarTabela();
+var idAlert = 0;
 
 function excluirAnimal(id, nomeAnimal) {
 
@@ -18,14 +19,17 @@ function excluirAnimal(id, nomeAnimal) {
                 var obj = $.parseJSON(data);
 
                 if (obj.status == 0) {
-                    alert.innerHTML = alert.innerHTML + "<div class='alert alert alert-primary alert-dismissible fade show' role='alert'><strong>Sucesso!</strong> Animal deletado.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                    alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert alert-primary alert-dismissible fade show' role='alert'><strong>Sucesso!</strong> Animal deletado.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 } else if (obj.status == 1) {
-                    alert.innerHTML = alert.innerHTML + "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro!</strong> Erro ao deletar animal.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                    alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro!</strong> Erro ao deletar animal.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 } else if (obj.status == 4) {
-                    alert.innerHTML = alert.innerHTML + "<div class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Erro!</strong> Sessão expirada! Refaça o login!.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                    alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Erro!</strong> Sessão expirada! Refaça o login!.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 }
 
                 buscarTabela();
+
+                hello('alert' + idAlert);
+                idAlert = idAlert + 1;
 
             }
         }).done(function () {
@@ -81,10 +85,22 @@ function atualizarTabela() {
     var alert = document.getElementById("divAlert");
     try {
         buscarTabela();
-        alert.innerHTML = alert.innerHTML + "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Sucesso!</strong> Tabela atualizada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+        alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-success alert-dismissible fade show' role='alert'><strong>Sucesso!</strong> Tabela atualizada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
     } catch (a) {
-        alert.innerHTML = alert.innerHTML + "<div class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro!</strong> Erro ao atualizar tabela!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+        alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro!</strong> Erro ao atualizar tabela!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
     }
+    hello('alert' + idAlert);
+    idAlert = idAlert + 1;
+}
+
+function wait(ms) {
+    return new Promise(r => setTimeout(r, ms));
+}
+
+async function hello(id) {
+    await wait(7000);
+    var el = document.getElementById(id);
+    el.parentNode.removeChild(el);
 }
 
 function ascii_to_hexa(str)

@@ -195,7 +195,7 @@
             <!-- Page level custom scripts -->
             <script src="js/demo/chart-area-demo.js"></script>
             <script src="js/demo/chart-pie-demo.js"></script>
-            <script src="js/cadastro_animais.js?version=9"></script>
+            <script src="js/cadastro_animais.js?version=14"></script>
             <script src="js/sumir_alerts.js?version=1"></script>
 
     </body>
