@@ -40,26 +40,6 @@
 
         </script>
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#dataTable').DataTable({
-                    "language": {
-                        "lengthMenu": "Mostrar _MENU_ linhas por página",
-                        "zeroRecords": "Nada encontrado",
-                        "info": "Mostrando _PAGE_ de _PAGES_",
-                        "infoEmpty": "Nenhum registro disponível",
-                        "infoFiltered": "(filtrado de _MAX_ linhas no total)",
-                        "search": "Buscar:",
-                        "paginate": {
-                            "first": "Primeira",
-                            "last": "Última",
-                            "next": "Próximo",
-                            "previous": "Anterior"
-                        },
-                    }
-                });
-            });
-        </script>
 
         <script type="text/javascript">
             function sleep(milliseconds) {
@@ -161,29 +141,34 @@
                                                 </span>
                                                 <span id="msgAtualizarTabela" class="text">Atualizar tabela</span>
                                             </button>
-                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Proprietário</th>
-                                                            <th>Nome do animal</th>
-                                                            <th>Tipo</th>
-                                                            <th>Ações</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th>Proprietário</th>
-                                                            <th>Nome do animal</th>
-                                                            <th>Tipo</th>
-                                                            <th>Ações</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                    <tbody id="resultTabela">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Proprietario</th>
+                                                        <th>Animal:</th>
+                                                        <th>Tipo:</th>
+                                                        <th>Ação:</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Proprietario</th>
+                                                        <th>Animal:</th>
+                                                        <th>Tipo:</th>
+                                                        <th>Ação:</th>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
 
+                                                </tbody>
+                                            </table>
 
-                                                    </tbody>
-                                                </table>
-                                            
                                         </div>
                                     </div>
                                 </div>
@@ -263,7 +248,7 @@
 
         <!-- Page level custom scripts -->
         <script src="js/demo/datatables-demo.js"></script>
-        <script src="js/manipular_animais.js?version=24"></script>
+        <script src="js/manipular_animais.js?version=39"></script>
         <script src="js/sumir_alerts.js?version=1"></script>
 
 

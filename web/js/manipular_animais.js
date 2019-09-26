@@ -61,11 +61,42 @@ function buscarTabela() {
         {
             var obj = $.parseJSON(data);
 
-            for (var cont = 0; cont < obj.cadastro.length; cont++) {
-                novaTabela = novaTabela + '<tr><td>' + obj.cadastro[cont].proprietario + '</td><td>' + obj.cadastro[cont].nomeanimal + '</td><td>' + obj.cadastro[cont].tipo + '</td><td><a href="javascript:editarAnimal(' + obj.cadastro[cont].id + ', \'' + obj.cadastro[cont].nomeanimal + '\')" class="btn btn-warning btn-circle"><i class="fas fa-exclamation-triangle"></i></a><a style=\'margin-left: 3px\' href="javascript:excluirAnimal(' + obj.cadastro[cont].id + ', \'' + obj.cadastro[cont].nomeanimal + '\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td></tr>';
-            }
+            $('#dataTable').DataTable().destroy();
 
-            tb.innerHTML = novaTabela;
+
+            $('#dataTable').DataTable({
+                "aaData": obj,
+                "aoColumns": [
+                    {"mDataProp": "proprietario"},
+                    {"mDataProp": "nomeanimal"},
+                    {"mDataProp": "tipo"},
+                    {"mDataProp": "botao"}
+                ],
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ linhas por página",
+                    "zeroRecords": "Nada encontrado",
+                    "info": "Mostrando _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhum registro disponível",
+                    "infoFiltered": "(filtrado de _MAX_ linhas no total)",
+                    "search": "Buscar:",
+                    "paginate": {
+                        "first": "Primeira",
+                        "last": "Última",
+                        "next": "Próximo",
+                        "previous": "Anterior"
+                    },
+                }
+            });
+
+
+
+            $('#dataTable').DataTable();
+
+//            for (var cont = 0; cont < obj.cadastro.length; cont++) {
+//                novaTabela = novaTabela + '<tr><td>' + obj.cadastro[cont].proprietario + '</td><td>' + obj.cadastro[cont].nomeanimal + '</td><td>' + obj.cadastro[cont].tipo + '</td><td><a href="javascript:editarAnimal(' + obj.cadastro[cont].id + ', \'' + obj.cadastro[cont].nomeanimal + '\')" class="btn btn-warning btn-circle"><i class="fas fa-exclamation-triangle"></i></a><a style=\'margin-left: 3px\' href="javascript:excluirAnimal(' + obj.cadastro[cont].id + ', \'' + obj.cadastro[cont].nomeanimal + '\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td></tr>';
+//            }
+//
+//            tb.innerHTML = novaTabela;
 
             msg.innerHTML = "Atualizar tabela";
             btn.disabled = false;

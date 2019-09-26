@@ -43,17 +43,17 @@ public class BuscarTabela extends HttpServlet {
 
             ArrayList<Cadastro> cadastros = dao.buscarCadastros();
 
-            String json = "{\"cadastro\":[";
+            String json = "[";
 
             for (int i = 0; i < cadastros.size(); i++) {
                 if (i == (cadastros.size() - 1)) {
-                    json = json + "{\"proprietario\":\"" + cadastros.get(i).getProprietario() + "\", \"nomeanimal\":\"" + cadastros.get(i).getNomeAnimal() + "\", \"tipo\":\"" + cadastros.get(i).getTipo() + "\", \"id\":\"" + cadastros.get(i).getId() + "\"}";
+                    json = json + "{\"botao\":\"<a href='javascript:editarAnimal(" + cadastros.get(i).getId() + ", \\\"" + cadastros.get(i).getNomeAnimal() + "\\\")' class='btn btn-warning btn-circle'><i class='fas fa-exclamation-triangle'></i></a><a style='margin-left: 3px' href='javascript:excluirAnimal(" + cadastros.get(i).getId() + ", \\\"" + cadastros.get(i).getNomeAnimal() + "\\\")' class='btn btn-danger btn-circle'><i class='fas fa-trash'></i></a>\",\"proprietario\":\"" + cadastros.get(i).getProprietario() + "\", \"nomeanimal\":\"" + cadastros.get(i).getNomeAnimal() + "\", \"tipo\":\"" + cadastros.get(i).getTipo() + "\", \"id\":\"" + cadastros.get(i).getId() + "\"}";
                 } else {
-                    json = json + "{\"proprietario\":\"" + cadastros.get(i).getProprietario() + "\", \"nomeanimal\":\"" + cadastros.get(i).getNomeAnimal() + "\", \"tipo\":\"" + cadastros.get(i).getTipo() + "\", \"id\":\"" + cadastros.get(i).getId() + "\"},";
+                    json = json + "{\"botao\":\"<a href='javascript:editarAnimal(" + cadastros.get(i).getId() + ", \\\"" + cadastros.get(i).getNomeAnimal() + "\\\")' class='btn btn-warning btn-circle'><i class='fas fa-exclamation-triangle'></i></a><a style='margin-left: 3px' href='javascript:excluirAnimal(" + cadastros.get(i).getId() + ", \\\"" + cadastros.get(i).getNomeAnimal() + "\\\")' class='btn btn-danger btn-circle'><i class='fas fa-trash'></i></a>\",\"proprietario\":\"" + cadastros.get(i).getProprietario() + "\", \"nomeanimal\":\"" + cadastros.get(i).getNomeAnimal() + "\", \"tipo\":\"" + cadastros.get(i).getTipo() + "\", \"id\":\"" + cadastros.get(i).getId() + "\"},";
                 }
             }
 
-            json = json + "]}";
+            json = json + "]";
 
 //            Status
 //            0 = cadastrado com sucesso
