@@ -85,7 +85,44 @@ function buscarTabela() {
                         "next": "Próximo",
                         "previous": "Anterior"
                     },
-                }
+
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2]
+                        },
+                        text: '<i>Copiar</i>',
+                        titleAttr: 'Copiar dados da tabela'
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2]
+                        },
+                        text: '<i>EXCEL</i>',
+                        titleAttr: 'Exportar para Excel'
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2]
+                        },
+                        text: '<i>CSV</i>',
+                        titleAttr: 'Exportar para CSV'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2]
+                        },
+                        text: '<i>PDF</i>',
+                        titleAttr: 'Exportar para PDF'
+
+                    }
+                ]
             });
 
 

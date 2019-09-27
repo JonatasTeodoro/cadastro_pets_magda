@@ -13,7 +13,7 @@
         <meta name="author" content="">
         <link rel="shortcut icon" href="img/favicon.png">
 
-        <title>Menu</title>
+        <title>Registro de animais do município de Magda-SP</title>
 
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,7 +24,8 @@
 
         <!-- Custom styles for this page -->
 
-        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+
 
 
         <script src="vendor/jquery/jquery.min.js"></script>
@@ -144,18 +145,18 @@
                                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th>Proprietario</th>
-                                                        <th>Animal:</th>
-                                                        <th>Tipo:</th>
-                                                        <th>Ação:</th>
+                                                        <th>Proprietário</th>
+                                                        <th>Animal</th>
+                                                        <th>Tipo</th>
+                                                        <th>Ação</th>
                                                     </tr>
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
-                                                        <th>Proprietario</th>
-                                                        <th>Animal:</th>
-                                                        <th>Tipo:</th>
-                                                        <th>Ação:</th>
+                                                        <th>Proprietário</th>
+                                                        <th>Animal</th>
+                                                        <th>Tipo</th>
+                                                        <th>Ação</th>
                                                     </tr>
                                                 </tfoot>
                                                 <tbody>
@@ -248,8 +249,27 @@
 
         <!-- Page level custom scripts -->
         <script src="js/demo/datatables-demo.js"></script>
-        <script src="js/manipular_animais.js?version=40"></script>
+        <script src="js/manipular_animais.js?version=58"></script>
         <script src="js/sumir_alerts.js?version=1"></script>
+
+
+        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet">
+
+        <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+
+
+
+
+
+
+
 
 
 
