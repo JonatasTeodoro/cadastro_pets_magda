@@ -248,7 +248,7 @@
 
         <!-- Page level custom scripts -->
         <script src="js/demo/datatables-demo.js"></script>
-        <script src="js/manipular_animais.js?version=39"></script>
+        <script src="js/manipular_animais.js?version=40"></script>
         <script src="js/sumir_alerts.js?version=1"></script>
 
 
