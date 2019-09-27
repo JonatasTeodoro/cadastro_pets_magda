@@ -5,11 +5,16 @@
  */
 package CONTROL;
 
+import DAO.LogDAO;
 import DAO.UsuarioDAO;
+import MODEL.Log;
 import MODEL.Usuario;
 import UTIL.criptografia;
+import batec.util.ConverterData;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Time;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +42,8 @@ public class EfetuarLogin extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            ConverterData conv = new ConverterData();
+            
             criptografia cripto = new criptografia();
             
             String usuario = request.getParameter("usuario");
@@ -47,6 +54,17 @@ public class EfetuarLogin extends HttpServlet {
             dao = new UsuarioDAO();
             
             Usuario obj = dao.buscarUsuario(usuario, senha);
+            
+            Log log = new Log();
+            log.setUsuario(obj);
+            log.setData(new Date());
+            log.setHora(new Time(new Date().getTime()));
+            
+            LogDAO logdao;
+            logdao = new LogDAO();
+            
+            logdao.cadastrarLog(log);
+            
             
             HttpSession sessao = request.getSession();
             sessao.setAttribute("autenticado", obj);
