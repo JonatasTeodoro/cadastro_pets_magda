@@ -84,13 +84,13 @@ function buscarTabela() {
                         "last": "Última",
                         "next": "Próximo",
                         "previous": "Anterior"
-                    },
+                    }
 
                 },
                 dom: 'Bfrtip',
                 buttons: [
                     {
-                        extend: 'copyHtml5',
+                        extend: 'copy',
                         exportOptions: {
                             columns: [0, 1, 2]
                         },
@@ -98,7 +98,7 @@ function buscarTabela() {
                         titleAttr: 'Copiar dados da tabela'
                     },
                     {
-                        extend: 'excelHtml5',
+                        extend: 'excel',
                         exportOptions: {
                             columns: [0, 1, 2]
                         },
@@ -106,7 +106,7 @@ function buscarTabela() {
                         titleAttr: 'Exportar para Excel'
                     },
                     {
-                        extend: 'csvHtml5',
+                        extend: 'csv',
                         exportOptions: {
                             columns: [0, 1, 2]
                         },
@@ -114,7 +114,7 @@ function buscarTabela() {
                         titleAttr: 'Exportar para CSV'
                     },
                     {
-                        extend: 'pdfHtml5',
+                        extend: 'pdf',
                         exportOptions: {
                             columns: [0, 1, 2]
                         },
