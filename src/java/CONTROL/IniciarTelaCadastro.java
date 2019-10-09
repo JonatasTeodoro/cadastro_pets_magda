@@ -5,9 +5,11 @@
  */
 package CONTROL;
 
-import DAO.CadastroDAO;
+import DAO.RacaDAO;
+import DAO.TipoDAO;
 import MODEL.Cadastro;
-import MODEL.Usuario;
+import MODEL.Raca;
+import MODEL.Tipo;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,14 +18,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Jonatas Teodoro
  */
-@WebServlet(name = "BuscarCadastros", urlPatterns = {"/BuscarCadastros"})
-public class BuscarCadastros extends HttpServlet {
+@WebServlet(name = "IniciarTelaCadastro", urlPatterns = {"/IniciarTelaCadastro"})
+public class IniciarTelaCadastro extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,21 +39,21 @@ public class BuscarCadastros extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-
-            HttpSession sessao = request.getSession();
-            Usuario autenticado = (Usuario) sessao.getAttribute("autenticado");
-            if (autenticado == null) {
-                request.getRequestDispatcher("sessao_expirada.jsp").forward(request, response);
-            } else {
-                CadastroDAO dao;
-                
-                dao = new CadastroDAO();
-                ArrayList<Cadastro> cadastros = dao.buscarCadastros();
-                
-                request.setAttribute("cadastros", cadastros);
-                request.getRequestDispatcher("cadastrados.jsp").forward(request, response);
-            }
-
+            TipoDAO tipoDAO;
+            RacaDAO racaDAO;
+            
+            Cadastro cadastro = (Cadastro) request.getAttribute("cadastro");
+            
+            tipoDAO = new TipoDAO();
+            racaDAO = new RacaDAO();
+            
+            ArrayList<Tipo> tipos = tipoDAO.buscarTipos();
+            ArrayList<Raca> racas = racaDAO.buscarTipos();
+            
+            request.setAttribute("cadastro", cadastro);
+            request.setAttribute("tipos", tipos);
+            request.setAttribute("racas", racas);
+            request.getRequestDispatcher("menu_principal.jsp").forward(request, response);
         } catch (Exception ex) {
             System.out.println("!Erro: " + ex.getMessage());
         }

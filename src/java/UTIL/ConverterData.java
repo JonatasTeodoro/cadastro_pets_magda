@@ -25,6 +25,16 @@ public class ConverterData {
             return date;
         }
     }
+    
+    public Date stringToDatePadrao(String data) throws ParseException {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        if (data == null || data.trim().equals("")) {
+            return null;
+        } else {
+            Date date = fmt.parse(data);
+            return date;
+        }
+    }
 
     public String dateToString(Date data) {
         SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");

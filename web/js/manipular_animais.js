@@ -70,6 +70,21 @@ function buscarTabela() {
                     {"mDataProp": "proprietario"},
                     {"mDataProp": "nomeanimal"},
                     {"mDataProp": "tipo"},
+                    {"mDataProp": "sexo"},
+                    {"mDataProp": "raca"},
+                    {"mDataProp": "nascimento"},
+                    {"mDataProp": "status", "render": function (data, type, row, meta) {
+
+                            if (type === 'display') {
+                                if (data == 'true') {
+                                    data = 'ATIVO';
+                                } else {
+                                    data = 'INATIVO';
+                                }
+
+                            }
+                            return data;
+                        }},
                     {"mDataProp": "botao"}
                 ],
                 "language": {
@@ -88,7 +103,37 @@ function buscarTabela() {
 
                 },
                 dom: 'Bfrtip',
+                colReorder: true,
+                "columnDefs": [
+                    {targets: 0,
+                        createdCell: function (td, cellData, rowData, row, col) {
+                            var tr = td.parentNode;
+                            if (rowData['status'] == 'false') {
+                                $(tr).css('color', 'RED');
+                            }
+                        }},
+                    {
+                        "targets": [4], //Índice do vetor representa a 3º coluna
+                        "visible": false,
+                        "searchable": true
+                    },
+                    {
+                        "targets": [6], //Índice do vetor representa a 3º coluna
+                        "visible": false,
+                        "searchable": true
+                    },
+                    {
+                        "targets": [5],
+                        "visible": false,
+                        "searchable": true
+                    }
+                ],
                 buttons: [
+                    {
+                        extend: 'colvis',
+                        text: '<i>Filtrar</i>',
+                        titleAttr: 'Seleciona colunas que deseja vizualizar'
+                    },
                     {
                         extend: 'copy',
                         exportOptions: {
@@ -122,7 +167,8 @@ function buscarTabela() {
                         titleAttr: 'Exportar para PDF'
 
                     }
-                ]
+                ],
+
             });
 
 

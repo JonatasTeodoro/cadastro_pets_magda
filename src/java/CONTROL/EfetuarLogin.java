@@ -69,7 +69,7 @@ public class EfetuarLogin extends HttpServlet {
             HttpSession sessao = request.getSession();
             sessao.setAttribute("autenticado", obj);
             
-            request.getRequestDispatcher("menu_principal.jsp").forward(request, response);
+            request.getRequestDispatcher("IniciarTelaCadastro").forward(request, response);
         } catch (Exception ex) {
             System.out.println("!Erro: " + ex.getMessage());
         }

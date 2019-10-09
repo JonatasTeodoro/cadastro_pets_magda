@@ -7,10 +7,14 @@ package CONTROL;
 
 import DAO.CadastroDAO;
 import MODEL.Cadastro;
+import MODEL.Raca;
+import MODEL.Tipo;
 import MODEL.Usuario;
 import UTIL.criptografia;
+import batec.util.ConverterData;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,6 +43,8 @@ public class CadastrarAnimal extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            
+            ConverterData conv = new ConverterData();
 
             int status = 0;
 
@@ -52,14 +58,27 @@ public class CadastrarAnimal extends HttpServlet {
 
                 String proprietario = crip.hexToAscii(request.getParameter("proprietario"));
                 String nomeAnimal = crip.hexToAscii(request.getParameter("nomeAnimal"));
-                String tipo = crip.hexToAscii(request.getParameter("tipo"));
+                String sexo = crip.hexToAscii(request.getParameter("sexo"));
                 int id = Integer.parseInt(request.getParameter("id"));
+                boolean ativo = Boolean.parseBoolean(request.getParameter("ativo"));
+                Date dataNascimento = conv.stringToDatePadrao(crip.hexToAscii(request.getParameter("datanascimento")));
 
                 Cadastro obj = new Cadastro();
+                Tipo tp = new Tipo();
+                Raca rc = new Raca();
+                
+                tp.setId(Integer.parseInt(crip.hexToAscii(request.getParameter("tipo"))));
+                rc.setId(Integer.parseInt(crip.hexToAscii(request.getParameter("raca"))));
+                
+                
                 obj.setId(id);
                 obj.setNomeAnimal(nomeAnimal);
                 obj.setProprietario(proprietario);
-                obj.setTipo(tipo);
+                obj.setSexo(sexo);
+                obj.setAtivo(ativo);
+                obj.setDataNascimento(dataNascimento);
+                obj.setRaca(rc);
+                obj.setTipo(tp);
 
                 CadastroDAO dao;
 

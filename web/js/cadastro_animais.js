@@ -5,7 +5,13 @@ function cadastrarAnimal() {
     var proprietario = document.getElementById("proprietario");
     var nomeanimal = document.getElementById("nomeanimal");
     var tipo = document.getElementById("tipo");
+    var raca = document.getElementById("raca");
+    var sexo = document.getElementById("sexo");
     var id = document.getElementById("id");
+    var ativo = document.getElementById("switch-shadow").checked;
+    var datanascimento = document.getElementById("datanascimento");
+
+
 
     var alert = document.getElementById("divAlert");
 
@@ -19,7 +25,7 @@ function cadastrarAnimal() {
     var retorno = false;
     var a;
     $.ajax({
-        url: 'CadastrarAnimal?proprietario=' + ascii_to_hexa(proprietario.value) + "&nomeAnimal=" + ascii_to_hexa(nomeanimal.value) + "&tipo=" + ascii_to_hexa(tipo.value) + "&id=" + id.value,
+        url: 'CadastrarAnimal?ativo=' + ativo + '&datanascimento=' + ascii_to_hexa(datanascimento.value) + '&raca=' + ascii_to_hexa(raca.value) + '&sexo=' + ascii_to_hexa(sexo.value) + '&proprietario=' + ascii_to_hexa(proprietario.value) + "&nomeAnimal=" + ascii_to_hexa(nomeanimal.value) + "&tipo=" + ascii_to_hexa(tipo.value) + "&id=" + id.value,
         //async: false,
         success: function (data)
         {
@@ -44,7 +50,7 @@ function cadastrarAnimal() {
             botao.disabled = false;
             botao.innerHTML = " <span class='icon text-white-50'><i class='fas fa-check'></i></span><span class='text'>Salvar</span>";
 
-            hello('alert'+idAlert);
+            hello('alert' + idAlert);
             idAlert = idAlert + 1;
         }
     }).done(function () {
@@ -69,6 +75,10 @@ function limparForm() {
     var proprietario = document.getElementById("proprietario").value = "";
     var nomeanimal = document.getElementById("nomeanimal").value = "";
     var tipo = document.getElementById("tipo").value = "";
+    var raca = document.getElementById("raca").value = "";
+    var sexo = document.getElementById("sexo").value = "";
+    var datanascimento = document.getElementById("datanascimento").value = "";
+    var status = document.getElementById("switch-shadow").checked = true;
     var id = document.getElementById("id").value = 0;
 }
 

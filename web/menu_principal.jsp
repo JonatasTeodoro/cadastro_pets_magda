@@ -1,3 +1,6 @@
+<%@page import="MODEL.Raca"%>
+<%@page import="MODEL.Tipo"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="MODEL.Cadastro"%>
 <%@page import="MODEL.Usuario"%>
 <!DOCTYPE html>
@@ -14,12 +17,17 @@
 
         <title>Menu</title>
 
+
         <!-- Custom fonts for this template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
         <!-- Custom styles for this template-->
         <link href="css/sb-admin-2.min.css?version=2" rel="stylesheet">
+
+
+
+
 
         <script type="text/javascript">
             function handleInput(e) {
@@ -40,6 +48,58 @@
                 right:0;
                 bottom:0;
                 z-index:100;
+            }
+
+            .switch {
+                position: absolute;
+                margin-left: -9999px;
+                visibility: hidden;
+            }
+
+            .switch + label {
+                display: block;
+                position: relative;
+                cursor: pointer;
+                outline: none;
+                user-select: none;
+            }
+
+            .switch--shadow + label {
+                padding: 2px;
+                width: 120px;
+                height: 60px;
+                background-color: #dddddd;
+                border-radius: 60px;
+            }
+
+            .switch--shadow + label:before,
+            .switch--shadow + label:after {
+                display: block;
+                position: absolute;
+                top: 1px;
+                left: 1px;
+                bottom: 1px;
+                content: "";
+            }
+            .switch--shadow + label:before {
+                right: 1px;
+                background-color: #f1f1f1;
+                border-radius: 60px;
+                transition: all 0.4s;
+            }
+            .switch--shadow + label:after {
+                width: 62px;
+                background-color: #fff;
+                border-radius: 100%;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+                transition: all 0.4s;
+            }
+
+            .switch--shadow:checked + label:before {
+                background-color: #8ce196;
+            }
+            .switch--shadow:checked + label:after {
+                transform: translateX(60px);
             }
         </style>
 
@@ -94,6 +154,9 @@
                                     <div class="card-body">
 
                                         <%Cadastro obj = (Cadastro) request.getAttribute("cadastro");
+                                            ArrayList<Tipo> tipos = (ArrayList<Tipo>) request.getAttribute("tipos");
+                                            ArrayList<Raca> racas = (ArrayList<Raca>) request.getAttribute("racas");
+
                                             if (obj == null) {
                                                 obj = new Cadastro();
                                             }
@@ -115,13 +178,47 @@
                                                     <label for="exampleFormControlSelect1">Tipo de animal:</label>
                                                     <select required="" class="form-control" id="tipo">
                                                         <option value="">SELECIONE...</option>
-                                                        <option <%if (obj.getTipo().equals("CACHORRO")) {%>selected=""<%}%> value="CACHORRO">CACHORRO</option>
-                                                        <option <%if (obj.getTipo().equals("GATO")) {%>selected=""<%}%> value="GATO">GATO</option>
+                                                        <%for (Tipo t : tipos) {%>
+                                                        <option <%if (t.getId() == obj.getTipo().getId()) {%>selected=""<%}%> value="<%=t.getId()%>"><%=t.getDescricao()%></option>
+                                                        <%}%>
                                                     </select>
                                                 </div>
                                             </div>
 
-                                                    <button id="btnSalvar" style="background-color: #668069" class="btn btn-success btn-icon-split">
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="exampleFormControlSelect1">Raça:</label>
+                                                    <select required="" class="form-control" id="raca">
+                                                        <option value="">SELECIONE...</option>
+                                                        <%for (Raca r : racas) {%>
+                                                        <option <%if (r.getId() == obj.getRaca().getId()) {%>selected=""<%}%> value="<%=r.getId()%>"><%=r.getDescricao()%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="exampleFormControlSelect1">Sexo:</label>
+                                                    <select required="" class="form-control" id="sexo">
+                                                        <option value="">SELECIONE...</option>
+                                                        <option <%if (obj.getSexo().equals("MACHO")) {%> selected="" <%}%> value="MACHO">MACHO</option>
+                                                        <option <%if (obj.getSexo().equals("FEMEA")) {%> selected="" <%}%> value="FEMEA">FEMEA</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label>Data de nascimento:</label>
+                                                    <input autocomplete="off" value="<%=obj.getDataNascimento()%>" required="" oninput="handleInput(event)" type="date" class="form-control" id="datanascimento">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label>Status:</label>
+                                                    <input id="switch-shadow" <%if (obj.getId() == 0 || obj.isAtivo()) {%>checked=""<%}%>  class="switch switch--shadow" type="checkbox">
+                                                    <label for="switch-shadow"></label>
+                                                </div>
+                                            </div>
+
+
+                                            <button id="btnSalvar" style="background-color: #668069" class="btn btn-success btn-icon-split">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-check"></i>
                                                 </span>
@@ -188,6 +285,7 @@
 
             <!-- Custom scripts for all pages-->
             <script src="js/sb-admin-2.min.js?version=2"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
             <!-- Page level plugins -->
             <script src="vendor/chart.js/Chart.min.js"></script>
@@ -195,8 +293,10 @@
             <!-- Page level custom scripts -->
             <script src="js/demo/chart-area-demo.js"></script>
             <script src="js/demo/chart-pie-demo.js"></script>
-            <script src="js/cadastro_animais.js?version=15"></script>
+            <script src="js/cadastro_animais.js?version=24"></script>
             <script src="js/sumir_alerts.js?version=1"></script>
+
+
 
     </body>
 

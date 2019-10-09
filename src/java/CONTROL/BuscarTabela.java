@@ -7,6 +7,7 @@ package CONTROL;
 
 import DAO.CadastroDAO;
 import MODEL.Cadastro;
+import batec.util.ConverterData;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ public class BuscarTabela extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            
+            ConverterData conv = new ConverterData();
 
             CadastroDAO dao;
             dao = new CadastroDAO();
@@ -47,9 +50,9 @@ public class BuscarTabela extends HttpServlet {
 
             for (int i = 0; i < cadastros.size(); i++) {
                 if (i == (cadastros.size() - 1)) {
-                    json = json + "{\"botao\":\"<a href='javascript:editarAnimal(" + cadastros.get(i).getId() + ", \\\"" + cadastros.get(i).getNomeAnimal() + "\\\")' class='btn btn-warning btn-circle'><i class='fas fa-exclamation-triangle'></i></a><a style='margin-left: 3px' href='javascript:excluirAnimal(" + cadastros.get(i).getId() + ", \\\"" + cadastros.get(i).getNomeAnimal() + "\\\")' class='btn btn-danger btn-circle'><i class='fas fa-trash'></i></a>\",\"proprietario\":\"" + cadastros.get(i).getProprietario() + "\", \"nomeanimal\":\"" + cadastros.get(i).getNomeAnimal() + "\", \"tipo\":\"" + cadastros.get(i).getTipo() + "\", \"id\":\"" + cadastros.get(i).getId() + "\"}";
+                    json = json + "{\"botao\":\"<a href='javascript:editarAnimal(" + cadastros.get(i).getId() + ", \\\"" + cadastros.get(i).getNomeAnimal() + "\\\")' class='btn btn-warning btn-circle'><i class='fas fa-exclamation-triangle'></i></a><a style='margin-left: 3px' href='javascript:excluirAnimal(" + cadastros.get(i).getId() + ", \\\"" + cadastros.get(i).getNomeAnimal() + "\\\")' class='btn btn-danger btn-circle'><i class='fas fa-trash'></i></a>\",\"proprietario\":\"" + cadastros.get(i).getProprietario() + "\", \"nomeanimal\":\"" + cadastros.get(i).getNomeAnimal() + "\", \"tipo\":\"" + cadastros.get(i).getTipo().getDescricao() + "\", \"id\":\"" + cadastros.get(i).getId() + "\", \"sexo\":\""+cadastros.get(i).getSexo()+"\", \"raca\":\""+cadastros.get(i).getRaca().getDescricao()+"\", \"nascimento\":\""+conv.dateToString(cadastros.get(i).getDataNascimento())+"\", \"status\":\""+cadastros.get(i).isAtivo()+"\"}";
                 } else {
-                    json = json + "{\"botao\":\"<a href='javascript:editarAnimal(" + cadastros.get(i).getId() + ", \\\"" + cadastros.get(i).getNomeAnimal() + "\\\")' class='btn btn-warning btn-circle'><i class='fas fa-exclamation-triangle'></i></a><a style='margin-left: 3px' href='javascript:excluirAnimal(" + cadastros.get(i).getId() + ", \\\"" + cadastros.get(i).getNomeAnimal() + "\\\")' class='btn btn-danger btn-circle'><i class='fas fa-trash'></i></a>\",\"proprietario\":\"" + cadastros.get(i).getProprietario() + "\", \"nomeanimal\":\"" + cadastros.get(i).getNomeAnimal() + "\", \"tipo\":\"" + cadastros.get(i).getTipo() + "\", \"id\":\"" + cadastros.get(i).getId() + "\"},";
+                    json = json + "{\"botao\":\"<a href='javascript:editarAnimal(" + cadastros.get(i).getId() + ", \\\"" + cadastros.get(i).getNomeAnimal() + "\\\")' class='btn btn-warning btn-circle'><i class='fas fa-exclamation-triangle'></i></a><a style='margin-left: 3px' href='javascript:excluirAnimal(" + cadastros.get(i).getId() + ", \\\"" + cadastros.get(i).getNomeAnimal() + "\\\")' class='btn btn-danger btn-circle'><i class='fas fa-trash'></i></a>\",\"proprietario\":\"" + cadastros.get(i).getProprietario() + "\", \"nomeanimal\":\"" + cadastros.get(i).getNomeAnimal() + "\", \"tipo\":\"" + cadastros.get(i).getTipo().getDescricao() + "\", \"id\":\"" + cadastros.get(i).getId() + "\", \"sexo\":\""+cadastros.get(i).getSexo()+"\", \"raca\":\""+cadastros.get(i).getRaca().getDescricao()+"\", \"nascimento\":\""+conv.dateToString(cadastros.get(i).getDataNascimento())+"\", \"status\":\""+cadastros.get(i).isAtivo()+"\"},";
                 }
             }
 

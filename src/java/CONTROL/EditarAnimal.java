@@ -52,7 +52,7 @@ public class EditarAnimal extends HttpServlet {
                 Cadastro obj = dao.buscarCadastro(id);
                 
                 request.setAttribute("cadastro", obj);
-                request.getRequestDispatcher("menu_principal.jsp").forward(request, response);
+                request.getRequestDispatcher("IniciarTelaCadastro").forward(request, response);
                 
             }
 

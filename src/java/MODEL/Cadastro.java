@@ -5,6 +5,8 @@
  */
 package MODEL;
 
+import java.util.Date;
+
 /**
  *
  * @author Jonatas Teodoro
@@ -14,20 +16,34 @@ public class Cadastro {
     private int id;
     private String proprietario;
     private String nomeAnimal;
-    private String tipo;
+    private String sexo;
+    private Raca raca;
+    private Tipo tipo;
+    private Date dataNascimento;
+    private boolean ativo;
 
-    public Cadastro(int id, String proprietario, String nomeAnimal, String tipo) {
+    
+
+    public Cadastro(int id, String proprietario, String nomeAnimal, String sexo, Raca raca, Tipo tipo, Date dataNascimento, boolean ativo) {
         this.id = id;
         this.proprietario = proprietario;
         this.nomeAnimal = nomeAnimal;
+        this.sexo = sexo;
+        this.raca = raca;
         this.tipo = tipo;
+        this.dataNascimento = dataNascimento;
+        this.ativo = ativo;
     }
 
     public Cadastro() {
         id = 0;
         proprietario = new String();
         nomeAnimal = new String();
-        tipo = new String();
+        sexo = new String();
+        raca = new Raca();
+        tipo = new Tipo();
+        dataNascimento = new Date();
+        ativo=false;
     }
 
     /**
@@ -73,17 +89,61 @@ public class Cadastro {
     }
 
     /**
+     * @return the sexo
+     */
+    public String getSexo() {
+        return sexo;
+    }
+
+    /**
+     * @param sexo the sexo to set
+     */
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    /**
+     * @return the raca
+     */
+    public Raca getRaca() {
+        return raca;
+    }
+
+    /**
+     * @param raca the raca to set
+     */
+    public void setRaca(Raca raca) {
+        this.raca = raca;
+    }
+
+    /**
      * @return the tipo
      */
-    public String getTipo() {
+    public Tipo getTipo() {
         return tipo;
     }
 
     /**
      * @param tipo the tipo to set
      */
-    public void setTipo(String tipo) {
+    public void setTipo(Tipo tipo) {
         this.tipo = tipo;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+    
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
 }
