@@ -5,26 +5,24 @@
  */
 package CONTROL;
 
-import DAO.RacaDAO;
 import DAO.TipoDAO;
-import MODEL.Cadastro;
-import MODEL.Raca;
-import MODEL.Tipo;
+import MODEL.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Jonatas Teodoro
  */
-@WebServlet(name = "IniciarTelaCadastro", urlPatterns = {"/IniciarTelaCadastro"})
-public class IniciarTelaCadastro extends HttpServlet {
+@WebServlet(name = "ExcluirTipo", urlPatterns = {"/ExcluirTipo"})
+public class ExcluirTipo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,21 +37,43 @@ public class IniciarTelaCadastro extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            TipoDAO tipoDAO;
-            RacaDAO racaDAO;
-            
-            Cadastro cadastro = (Cadastro) request.getAttribute("cadastro");
-            
-            tipoDAO = new TipoDAO();
-            racaDAO = new RacaDAO();
-            
-            ArrayList<Tipo> tipos = tipoDAO.buscarTipos();
-            ArrayList<Raca> racas = racaDAO.buscarRacas();
-            
-            request.setAttribute("cadastro", cadastro);
-            request.setAttribute("tipos", tipos);
-            request.setAttribute("racas", racas);
-            request.getRequestDispatcher("menu_principal.jsp").forward(request, response);
+
+            int status = 0;
+
+            HttpSession sessao = request.getSession();
+            Usuario autenticado = (Usuario) sessao.getAttribute("autenticado");
+            if (autenticado == null) {
+                status = 4;
+            } else {
+
+                int id = Integer.parseInt(request.getParameter("id"));
+
+                TipoDAO dao;
+
+                dao = new TipoDAO();
+
+                if (!dao.verificarForeignKey(id)) {
+                    dao = new TipoDAO();
+                    if (dao.excluirTipo(id)) {
+                        status = 0;
+                    } else {
+                        status = 1;
+                    }
+                } else {
+                    status = 3;
+                }
+
+            }
+
+            String json = "{\"status\": \"" + status + "\"}";
+
+//            Status
+//            0 = cadastrado com sucesso
+//            1 = erro ao cadastrar
+//            2 = editado com sucesso
+//            3 = erro ao editar    
+            HttpServletResponse f = new HttpServletResponseWrapper(response);
+            f.getWriter().print(json);
         } catch (Exception ex) {
             System.out.println("!Erro: " + ex.getMessage());
         }

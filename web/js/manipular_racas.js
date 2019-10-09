@@ -1,7 +1,7 @@
-buscarTabela();
+buscarRaca();
 var idAlert = 0;
 
-function excluirAnimal(id, nomeAnimal) {
+function excluirRaca(id, nomeAnimal) {
 
     var alert = document.getElementById("divAlert");
 
@@ -12,21 +12,23 @@ function excluirAnimal(id, nomeAnimal) {
         var retorno = false;
         var a;
         $.ajax({
-            url: 'ExcluirAnimal?id=' + id,
+            url: 'ExcluirRaca?id=' + id,
             //async: false,
             success: function (data)
             {
                 var obj = $.parseJSON(data);
 
                 if (obj.status == 0) {
-                    alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert alert-primary alert-dismissible fade show' role='alert'><strong>Sucesso!</strong> Animal deletado.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                    alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert alert-primary alert-dismissible fade show' role='alert'><strong>Sucesso!</strong> Ra\u00e7a deletada.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 } else if (obj.status == 1) {
-                    alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro!</strong> Erro ao deletar animal.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                    alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro!</strong> Erro ao deletar ra\u00e7a.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 } else if (obj.status == 4) {
                     alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Erro!</strong> Sess\u00e3o expirada! Refa\u00e7a o login!.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                } else if (obj.status == 3) {
+                    alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro!</strong> Existem animais com esta ra\u00e7a cadastrados ainda.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
                 }
 
-                buscarTabela();
+                buscarRaca();
 
                 hello('alert' + idAlert);
                 idAlert = idAlert + 1;
@@ -40,8 +42,95 @@ function excluirAnimal(id, nomeAnimal) {
     }
 }
 
+function editarRaca(id, tipo) {
 
-function buscarTabela() {
+    var alert = document.getElementById("divAlert");
+
+    document.getElementById("btnSalvar").disabled = true;
+    document.getElementById("btnSalvar").innerHTML = "Editando";
+
+    var retorno = false;
+    var a;
+    $.ajax({
+        url: 'EditarRaca?id=' + id.value + "&descricao=" + ascii_to_hexa(tipo.value),
+        //async: false,
+        success: function (data)
+        {
+            var obj = $.parseJSON(data);
+
+            if (obj.status == 0) {
+                alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert alert-primary alert-dismissible fade show' role='alert'><strong>Sucesso!</strong> Ra\u00e7a editada.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            } else if (obj.status == 1) {
+                alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro!</strong> Erro ao editar ra\u00e7a.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            } else if (obj.status == 4) {
+                alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Erro!</strong> Sess\u00e3o expirada! Refa\u00e7a o login!.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            }
+
+            document.getElementById("btnSalvar").disabled = false;
+            document.getElementById("btnSalvar").innerHTML = "Salvar";
+
+            buscarRaca();
+
+            $('#myModal').modal('hide');
+
+            hello('alert' + idAlert);
+            idAlert = idAlert + 1;
+
+        }
+    }).done(function () {
+        a = true;
+    });
+    console.log(a);
+    return retorno;
+
+}
+
+function cadastrarRaca(tipo) {
+
+    var alert = document.getElementById("divAlert");
+
+    document.getElementById("btnCadastrar").disabled = true;
+    document.getElementById("btnCadastrar").innerHTML = "Editando";
+
+    var retorno = false;
+    var a;
+    $.ajax({
+        url: 'CadastrarRaca?descricao=' + ascii_to_hexa(tipo.value),
+        //async: false,
+        success: function (data)
+        {
+            var obj = $.parseJSON(data);
+
+            if (obj.status == 0) {
+                alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert alert-primary alert-dismissible fade show' role='alert'><strong>Sucesso!</strong> Ra\u00e7a cadastrada.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            } else if (obj.status == 1) {
+                alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro!</strong> Erro ao cadastrar ra\u00e7a.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            } else if (obj.status == 4) {
+                alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-warning alert-dismissible fade show' role='alert'><strong>Erro!</strong> Sess\u00e3o expirada! Refa\u00e7a o login!.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            }
+
+            document.getElementById("btnCadastrar").disabled = false;
+            document.getElementById("btnCadastrar").innerHTML = "Salvar";
+
+            buscarRaca();
+
+            $('#modalCadastro').modal('hide');
+            tipo.value = "";
+
+            hello('alert' + idAlert);
+            idAlert = idAlert + 1;
+
+        }
+    }).done(function () {
+        a = true;
+    });
+    console.log(a);
+    return retorno;
+
+}
+
+
+function buscarRaca() {
 
     var alert = document.getElementById("divAlert");
     var tb = document.getElementById("resultTabela");
@@ -55,7 +144,7 @@ function buscarTabela() {
     var retorno = false;
     var a;
     $.ajax({
-        url: 'BuscarTabela',
+        url: 'BuscarTabelaRaca',
         //async: false,
         success: function (data)
         {
@@ -67,24 +156,7 @@ function buscarTabela() {
             $('#dataTable').DataTable({
                 "aaData": obj,
                 "aoColumns": [
-                    {"mDataProp": "proprietario"},
-                    {"mDataProp": "nomeanimal"},
-                    {"mDataProp": "tipo"},
-                    {"mDataProp": "sexo"},
-                    {"mDataProp": "raca"},
-                    {"mDataProp": "nascimento"},
-                    {"mDataProp": "status", "render": function (data, type, row, meta) {
-
-                            if (type === 'display') {
-                                if (data == 'true') {
-                                    data = 'ATIVO';
-                                } else {
-                                    data = 'INATIVO';
-                                }
-
-                            }
-                            return data;
-                        }},
+                    {"mDataProp": "descricao"},
                     {"mDataProp": "botao"}
                 ],
                 "language": {
@@ -103,41 +175,11 @@ function buscarTabela() {
 
                 },
                 dom: 'Bfrtip',
-                colReorder: true,
-                "columnDefs": [
-                    {targets: 0,
-                        createdCell: function (td, cellData, rowData, row, col) {
-                            var tr = td.parentNode;
-                            if (rowData['status'] == 'false') {
-                                $(tr).css('color', 'RED');
-                            }
-                        }},
-                    {
-                        "targets": [4], //Índice do vetor representa a 3º coluna
-                        "visible": false,
-                        "searchable": true
-                    },
-                    {
-                        "targets": [6], //Índice do vetor representa a 3º coluna
-                        "visible": false,
-                        "searchable": true
-                    },
-                    {
-                        "targets": [5],
-                        "visible": false,
-                        "searchable": true
-                    }
-                ],
                 buttons: [
-                    {
-                        extend: 'colvis',
-                        text: '<i>Filtrar</i>',
-                        titleAttr: 'Seleciona colunas que deseja vizualizar'
-                    },
                     {
                         extend: 'copy',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0]
                         },
                         text: '<i>Copiar</i>',
                         titleAttr: 'Copiar dados da tabela'
@@ -145,7 +187,7 @@ function buscarTabela() {
                     {
                         extend: 'excel',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0]
                         },
                         text: '<i>EXCEL</i>',
                         titleAttr: 'Exportar para Excel'
@@ -153,7 +195,7 @@ function buscarTabela() {
                     {
                         extend: 'csv',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0]
                         },
                         text: '<i>CSV</i>',
                         titleAttr: 'Exportar para CSV'
@@ -161,12 +203,15 @@ function buscarTabela() {
                     {
                         extend: 'pdf',
                         exportOptions: {
-                            columns: [0, 1, 2]
+                            columns: [0]
                         },
                         text: '<i>PDF</i>',
                         titleAttr: 'Exportar para PDF'
 
                     }
+                ],
+                columnDefs: [
+                    {width: '10%', targets: 1}
                 ],
 
             });
@@ -195,10 +240,10 @@ function buscarTabela() {
 
 }
 
-function atualizarTabela() {
+function atualizarRaca() {
     var alert = document.getElementById("divAlert");
     try {
-        buscarTabela();
+        buscarRaca();
         alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-success alert-dismissible fade show' role='alert'><strong>Sucesso!</strong> Tabela atualizada com sucesso!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
     } catch (a) {
         alert.innerHTML = alert.innerHTML + "<div id='alert" + idAlert + "' class='alert alert-danger alert-dismissible fade show' role='alert'><strong>Erro!</strong> Erro ao atualizar tabela!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";

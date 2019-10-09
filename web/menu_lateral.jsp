@@ -16,13 +16,13 @@
     </li>
 
     <li class="nav-item active">
-        <a class="text-center nav-link" href="BuscarCadastros">
+        <a class="text-center nav-link" href="racas.jsp">
             <i class="fa fa-paw"></i>
             <span>Raça</span></a>
     </li>
     
     <li class="nav-item active">
-        <a class="text-center nav-link" href="BuscarCadastros">
+        <a class="text-center nav-link" href="tipos.jsp">
             <i class="fa fa-dog"></i>
             <span>Tipo</span></a>
     </li>

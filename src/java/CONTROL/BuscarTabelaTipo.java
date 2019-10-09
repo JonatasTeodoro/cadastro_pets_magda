@@ -5,10 +5,7 @@
  */
 package CONTROL;
 
-import DAO.RacaDAO;
 import DAO.TipoDAO;
-import MODEL.Cadastro;
-import MODEL.Raca;
 import MODEL.Tipo;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,13 +15,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 /**
  *
  * @author Jonatas Teodoro
  */
-@WebServlet(name = "IniciarTelaCadastro", urlPatterns = {"/IniciarTelaCadastro"})
-public class IniciarTelaCadastro extends HttpServlet {
+@WebServlet(name = "BuscarTabelaTipo", urlPatterns = {"/BuscarTabelaTipo"})
+public class BuscarTabelaTipo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,21 +37,32 @@ public class IniciarTelaCadastro extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            TipoDAO tipoDAO;
-            RacaDAO racaDAO;
             
-            Cadastro cadastro = (Cadastro) request.getAttribute("cadastro");
-            
-            tipoDAO = new TipoDAO();
-            racaDAO = new RacaDAO();
-            
-            ArrayList<Tipo> tipos = tipoDAO.buscarTipos();
-            ArrayList<Raca> racas = racaDAO.buscarRacas();
-            
-            request.setAttribute("cadastro", cadastro);
-            request.setAttribute("tipos", tipos);
-            request.setAttribute("racas", racas);
-            request.getRequestDispatcher("menu_principal.jsp").forward(request, response);
+
+            TipoDAO dao;
+            dao = new TipoDAO();
+
+            ArrayList<Tipo> tipos = dao.buscarTipos();
+
+            String json = "[";
+
+            for (int i = 0; i < tipos.size(); i++) {
+                if (i == (tipos.size() - 1)) {
+                    json = json + "{\"botao\":\"<a href='javascript:abrirEditarTipo(" + tipos.get(i).getId() + ", \\\"" + tipos.get(i).getDescricao() + "\\\")' class='btn btn-warning btn-circle'><i class='fas fa-exclamation-triangle'></i></a><a style='margin-left: 3px' href='javascript:excluirTipo(" + tipos.get(i).getId() + ", \\\"" + tipos.get(i).getDescricao() + "\\\")' class='btn btn-danger btn-circle'><i class='fas fa-trash'></i></a>\",\"descricao\":\"" + tipos.get(i).getDescricao() + "\"}";
+                } else {
+                    json = json + "{\"botao\":\"<a href='javascript:abrirEditarTipo(" + tipos.get(i).getId() + ", \\\"" + tipos.get(i).getDescricao() + "\\\")' class='btn btn-warning btn-circle'><i class='fas fa-exclamation-triangle'></i></a><a style='margin-left: 3px' href='javascript:excluirTipo(" + tipos.get(i).getId() + ", \\\"" + tipos.get(i).getDescricao() + "\\\")' class='btn btn-danger btn-circle'><i class='fas fa-trash'></i></a>\",\"descricao\":\"" + tipos.get(i).getDescricao() + "\"},";
+                }
+            }
+
+            json = json + "]";
+
+//            Status
+//            0 = cadastrado com sucesso
+//            1 = erro ao cadastrar
+//            2 = editado com sucesso
+//            3 = erro ao editar    
+            HttpServletResponse f = new HttpServletResponseWrapper(response);
+            f.getWriter().print(json);
         } catch (Exception ex) {
             System.out.println("!Erro: " + ex.getMessage());
         }
